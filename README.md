@@ -25,13 +25,13 @@ pip install torch numpy scikit-learn
 
 ```python
 import numpy as np
-from cne import ContrastiveNeighboorEmbedding
+from cne import ContrastiveNeighborEmbedding
 
 # Sample data
 X = np.random.rand(200, 100)  # 200 samples with 100 features each
 
 # Initialize and fit the model
-cne = ContrastiveNeighboorEmbedding(n_components=2, n_neighbors=15, max_epochs=50)
+cne = ContrastiveNeighborEmbedding(n_components=2, n_neighbors=15, max_epochs=50)
 cne.fit(X)
 
 # Transform the data
@@ -61,7 +61,7 @@ plt.show()
 
 ## API Reference
 
-### `ContrastiveNeighboorEmbedding`
+### `ContrastiveNeighborEmbedding`
 
 #### `__init__(self, n_components=2, n_neighbors=40, temp=20, learning_rate=0.2, scale=1.0, max_epochs=100, batch_size=300, gamma=0.9, standardize_data=False, lambda_reg=0.0001, warmup_epochs=40, verbose=True)`
 

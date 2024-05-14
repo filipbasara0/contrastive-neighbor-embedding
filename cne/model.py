@@ -70,7 +70,7 @@ def contrastive_loss(x: torch.Tensor, labels: torch.Tensor, tau: nn.Parameter, b
     return loss + l2_reg
 
 
-class ContrastiveNeighboorEmbedding(nn.Module):
+class ContrastiveNeighborEmbedding(nn.Module):
     def __init__(self, n_components: int = 2, n_neighbors: int = 40, temp: float = 20,
                  learning_rate: float = 0.2, scale: float = 1.0, max_epochs: int = 100,
                  batch_size: int = 300, gamma: float = 0.9, standardize_data: bool = False,
@@ -119,11 +119,6 @@ class ContrastiveNeighboorEmbedding(nn.Module):
             scheduler.step()
         self.embedding = self.model.get_embedding().detach().numpy()
 
-    def transform(self) -> torch.Tensor:
-        if self.embedding is None:
-            raise RuntimeError("The model has not been trained yet!")
-        return self.embedding
-
     def _train_epoch(self, data: torch.Tensor, optimizer: optim.Optimizer, epoch: int,
                      scheduler: CosineAnnealingLR, total_num_steps: int, gamma: float) -> float:
         n = len(data)
@@ -154,3 +149,12 @@ class ContrastiveNeighboorEmbedding(nn.Module):
                   f'LR: {scheduler.get_last_lr()[0]}, Gamma: {gamma}')
 
         return gamma
+    
+    def transform(self) -> torch.Tensor:
+        if self.embedding is None:
+            raise RuntimeError("The model has not been trained yet!")
+        return self.embedding
+    
+    def fit_transform(self, X) -> torch.Tensor:
+        self.fit(X)
+        return self.transform()

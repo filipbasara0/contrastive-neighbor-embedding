@@ -1,1 +1,1 @@
-from cne.model import ContrastiveNeighboorEmbedding
+from cne.model import ContrastiveNeighborEmbedding
